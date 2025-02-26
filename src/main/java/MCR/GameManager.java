@@ -1,39 +1,85 @@
 package MCR;
+
 import javax.swing.*;
 import java.awt.*;
 
-public class GameManager extends JFrame
-{
-    public static final int GAME_WIDTH = 1024;
-    public static final int GAME_HEIGHT = 512;
+public class GameManager implements Displayer {
+    private final int GAME_WIDTH = 1024;
+    private final int GAME_HEIGHT = 512;
+    private static GameManager instance;
 
-    private GameScene gameScene;
+    private final JFrame frame;
+    private JPanel panel;
 
-    public GameManager()
-    {
-        gameScene = new GameScene(GAME_WIDTH, GAME_HEIGHT);
-        initialize();
+    public static GameManager getInstance() {
+        if (instance == null) {
+            instance = new GameManager();
+        }
+        return instance;
+    }
+
+    private GameManager() {
+        frame = new JFrame();
+        panel = new JPanel();
+        initFrame();
+        initPanel();
+        frame.add(panel);
         System.out.println("Game Manager Created");
     }
 
-    private void initialize() {
-        this.setTitle("Bouncer");
-        this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        this.setResizable(false);
-        this.setFocusable(true);
-        this.setLayout(new FlowLayout(FlowLayout.CENTER));
-        this.setSize(GAME_WIDTH + 32, GAME_HEIGHT + 64);
-        this.setPreferredSize(new Dimension(GAME_WIDTH + 32, GAME_HEIGHT + 64));
-        this.pack(); //will size the frame to fit all element
+    private void initFrame() {
+        frame.setTitle("Bouncer");
+        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        frame.setResizable(false);
+        frame.setFocusable(true);
+        frame.setLayout(new FlowLayout(FlowLayout.CENTER));
+        frame.setSize(GAME_WIDTH, GAME_HEIGHT + 48);
+        frame.setPreferredSize(new Dimension(GAME_WIDTH, GAME_HEIGHT + 48));
+        frame.pack(); //will size the frame to fit all element
 
-        this.setLocationRelativeTo(null);
-        this.setVisible(true);
-        InitializePanel();
+        frame.setLocationRelativeTo(null);
+        frame.setVisible(true);
     }
 
-    private void InitializePanel()
-    {
-        gameScene.setBounds(0, 0, GAME_WIDTH, GAME_HEIGHT);
-        this.add(gameScene);
+    private void initPanel() {
+        panel.setFocusable(true);
+        panel.setSize(GAME_WIDTH, GAME_HEIGHT);
+        panel.setPreferredSize(new Dimension(GAME_WIDTH, GAME_HEIGHT));
+        panel.setVisible(true);
+        panel.setBounds(0, 0, GAME_WIDTH, GAME_HEIGHT);
+        System.out.println("GameScene Created");
+    }
+
+    public JFrame getFrame() {
+        return frame;
+    }
+
+    @Override
+    public int getWidth() {
+        return GAME_WIDTH;
+    }
+
+    @Override
+    public int getHeight() {
+        return GAME_HEIGHT;
+    }
+
+    @Override
+    public Graphics2D getGraphics() {
+        return (Graphics2D) panel.getGraphics();
+    }
+
+    @Override
+    public void repaint() {
+        clear();
+    }
+
+    public void clear() {
+        panel.getGraphics().clearRect(0, 0, GAME_WIDTH, GAME_HEIGHT);
+    }
+
+    @Override
+    public void setTitle(String title) {
+        frame.setTitle(title);
     }
 }
