@@ -1,8 +1,11 @@
 package MCR;
 
-import MCR.Shape.Circle;
-import MCR.Shape.Shape;
-import MCR.Shape.Square;
+import MCR.Shape.Bounceable;
+import MCR.Shape.Circle.*;
+import MCR.Shape.BaseShape;
+import MCR.Shape.EmptyShapeFactory;
+import MCR.Shape.FilledShapeFactory;
+import MCR.Shape.Square.*;
 
 import javax.swing.*;
 import java.awt.*;
@@ -14,17 +17,32 @@ public class BouncersApp implements ActionListener {
     private final int DELAY = 25;
     private Timer timer;
 
-    private final LinkedList<Shape> bouncers = new LinkedList<>();
+    private final LinkedList<Bounceable> bouncers = new LinkedList<>();
 
     private GameManager gameManager;
 
     public BouncersApp() {
         gameManager = GameManager.getInstance();
+        gameManager.addKeyListener(new CustomKeyAdapter());
+
+
         timer = new Timer(DELAY, this);
+
+        FilledShapeFactory filledShapeFactory = new FilledShapeFactory();
+        filledShapeFactory.createCircles();
+
+        /*
+        for (Bounceable bounceable : bouncers) {
+            System.out.println("Bouncer color " + bounceable.getColor());
+        }
+        */
+
+        /*
         for (int i = 0; i < 50; i++)
         {
             bouncers.add(i % 2 == 0 ? new Circle() : new Square());
         }
+        */
     }
 
     public void run() {
@@ -45,9 +63,38 @@ public class BouncersApp implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         gameManager.repaint();
-        for (Shape shape : bouncers)
+        for (Bounceable bounceable : bouncers) {
+            bounceable.draw();
+            //gameManager.display(gameManager.getGraphics(), bounceable);
+        }
+
+        /*
+        for (BaseShape shape : bouncers)
         {
-            shape.draw(gameManager.getGraphics());
+            //shape.draw(gameManager.getGraphics());
+        }
+        */
+    }
+
+    private class CustomKeyAdapter extends KeyAdapter {
+        @Override
+        public void keyReleased(KeyEvent e) {
+            if (e.getKeyCode() == KeyEvent.VK_E) {
+                bouncers.clear();
+            }
+            if (e.getKeyCode() == KeyEvent.VK_F) {
+                FilledShapeFactory filledShapeFactory = new FilledShapeFactory();
+                bouncers.addAll(filledShapeFactory.createSquares());
+                bouncers.addAll(filledShapeFactory.createCircles());
+            }
+            if (e.getKeyCode() == KeyEvent.VK_B) {
+                EmptyShapeFactory emptyShapeFactory = new EmptyShapeFactory();
+                bouncers.addAll(emptyShapeFactory.createSquares());
+                bouncers.addAll(emptyShapeFactory.createCircles());
+            }
+            if (e.getKeyCode() == KeyEvent.VK_Q) {
+                System.exit(0);
+            }
         }
     }
 }

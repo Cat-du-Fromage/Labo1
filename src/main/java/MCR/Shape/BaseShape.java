@@ -4,15 +4,12 @@ import MCR.GameManager;
 
 import java.awt.*;
 
-public abstract class Shape {
+public abstract class BaseShape implements Bounceable {
     protected int size;
-    protected Color color;
     protected Point origin;
     protected Point velocity;
 
-    protected Shape(Color c) {
-        this.color = c;
-
+    protected BaseShape() {
         size = (int)(Math.random() * 32) + 16;
 
         int posX = (int)(Math.random() * GameManager.getInstance().getWidth() - (size + 1)) + size;
@@ -24,7 +21,8 @@ public abstract class Shape {
         velocity = new Point(velocityX, velocityY);
     }
 
-    public abstract void draw(Graphics2D g);
+    //public abstract void draw(Graphics2D g);
+
     public void move(){
         if(origin.x + velocity.x > GameManager.getInstance().getWidth() - size)
         {

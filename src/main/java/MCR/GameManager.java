@@ -1,9 +1,15 @@
 package MCR;
 
+import MCR.Shape.Bounceable;
+
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
-public class GameManager implements Displayer {
+public class GameManager implements Displayer, Renderer {
     private final int GAME_WIDTH = 1024;
     private final int GAME_HEIGHT = 512;
     private static GameManager instance;
@@ -30,7 +36,7 @@ public class GameManager implements Displayer {
     private void initFrame() {
         frame.setTitle("Bouncer");
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        frame.setResizable(false);
+        frame.setResizable(true);
         frame.setFocusable(true);
         frame.setLayout(new FlowLayout(FlowLayout.CENTER));
         frame.setSize(GAME_WIDTH, GAME_HEIGHT + 48);
@@ -81,5 +87,16 @@ public class GameManager implements Displayer {
     @Override
     public void setTitle(String title) {
         frame.setTitle(title);
+    }
+
+    @Override
+    public void display(Graphics2D g, Bounceable b) {
+        g.draw(b.getShape());
+        //g.fill(b.getShape());
+    }
+
+    @Override
+    public void addKeyListener(KeyAdapter ka) {
+        frame.addKeyListener(ka);
     }
 }
