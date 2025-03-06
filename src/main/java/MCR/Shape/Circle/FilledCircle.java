@@ -16,6 +16,12 @@ public class FilledCircle extends BaseShape {
     }
 
     @Override
+    public void move() {
+        super.move();
+        circle.setFrame(origin.x, origin.y, size, size);
+    }
+
+    @Override
     public void draw() {
         GameManager.getInstance().display(GameManager.getInstance().getGraphics(), this);
     }

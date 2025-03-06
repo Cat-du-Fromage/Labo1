@@ -29,7 +29,7 @@ public class BouncersApp implements ActionListener {
         timer = new Timer(DELAY, this);
 
         FilledShapeFactory filledShapeFactory = new FilledShapeFactory();
-        filledShapeFactory.createCircles();
+        bouncers.addAll(filledShapeFactory.createCircles());
 
         /*
         for (Bounceable bounceable : bouncers) {
@@ -64,16 +64,9 @@ public class BouncersApp implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         gameManager.repaint();
         for (Bounceable bounceable : bouncers) {
+            bounceable.move();
             bounceable.draw();
-            //gameManager.display(gameManager.getGraphics(), bounceable);
         }
-
-        /*
-        for (BaseShape shape : bouncers)
-        {
-            //shape.draw(gameManager.getGraphics());
-        }
-        */
     }
 
     private class CustomKeyAdapter extends KeyAdapter {

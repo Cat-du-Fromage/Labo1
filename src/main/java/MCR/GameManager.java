@@ -91,8 +91,14 @@ public class GameManager implements Displayer, Renderer {
 
     @Override
     public void display(Graphics2D g, Bounceable b) {
-        g.draw(b.getShape());
-        //g.fill(b.getShape());
+
+        g.setColor(b.getColor());
+        //if(b.IsPlein)
+        //{
+        g.fill(b.getShape());
+        //} else {
+        //g.draw(b.getShape());
+        //}
     }
 
     @Override
