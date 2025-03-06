@@ -9,7 +9,7 @@ import java.awt.event.ComponentListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
-public class GameManager implements Displayer, Renderer {
+public class GameManager implements Displayer {
     private final int GAME_WIDTH = 1024;
     private final int GAME_HEIGHT = 512;
     private static GameManager instance;
@@ -87,18 +87,6 @@ public class GameManager implements Displayer, Renderer {
     @Override
     public void setTitle(String title) {
         frame.setTitle(title);
-    }
-
-    @Override
-    public void display(Graphics2D g, Bounceable b) {
-
-        g.setColor(b.getColor());
-        //if(b.IsPlein)
-        //{
-        g.fill(b.getShape());
-        //} else {
-        //g.draw(b.getShape());
-        //}
     }
 
     @Override

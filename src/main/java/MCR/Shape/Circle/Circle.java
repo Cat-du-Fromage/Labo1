@@ -3,18 +3,26 @@ package MCR.Shape.Circle;
 import MCR.Shape.BaseShape;
 
 import java.awt.*;
-/*
-public class Circle extends BaseShape {
+import java.awt.geom.Ellipse2D;
 
-    public Circle() {
-        super(Color.BLUE);
+public abstract class Circle extends BaseShape {
+
+    protected Ellipse2D circle;
+
+    protected Circle() {
+        super();
+        circle = new Ellipse2D.Double(origin.x, origin.y, size, size);
     }
 
     @Override
-    public void draw(Graphics2D g) {
-        move();
-        g.setColor(color);
-        g.fillOval(origin.x, origin.y, size, size);
+    public void move() {
+        super.move();
+        circle.setFrame(origin.x, origin.y, size, size);
+    }
+
+    @Override
+    public Shape getShape() {
+        return circle;
     }
 }
-*/
+

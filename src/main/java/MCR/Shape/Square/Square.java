@@ -3,16 +3,26 @@ package MCR.Shape.Square;
 import MCR.Shape.BaseShape;
 
 import java.awt.*;
-/*
-public class Square extends BaseShape {
-    public Square() {
-        super(Color.YELLOW);
+import java.awt.geom.Rectangle2D;
+
+public abstract class Square extends BaseShape {
+
+    protected Rectangle2D rectangle;
+
+    protected Square() {
+        super();
+        rectangle = new Rectangle2D.Double(origin.x, origin.y, size, size);
     }
 
-    public void draw(Graphics2D g) {
-        move();
-        g.setColor(this.color);
-        g.fillRect(this.origin.x, this.origin.y, this.size, this.size);
+    @Override
+    public void move() {
+        super.move();
+        rectangle.setFrame(origin.x, origin.y, size, size);
+    }
+
+    @Override
+    public Shape getShape() {
+        return rectangle;
     }
 }
-*/
+

@@ -21,8 +21,6 @@ public abstract class BaseShape implements Bounceable {
         velocity = new Point(velocityX, velocityY);
     }
 
-    //public abstract void draw(Graphics2D g);
-
     public void move(){
         if(origin.x + velocity.x > GameManager.getInstance().getWidth() - size)
         {

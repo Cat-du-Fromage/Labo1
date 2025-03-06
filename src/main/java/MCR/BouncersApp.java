@@ -24,19 +24,7 @@ public class BouncersApp implements ActionListener {
     public BouncersApp() {
         gameManager = GameManager.getInstance();
         gameManager.addKeyListener(new CustomKeyAdapter());
-
-
         timer = new Timer(DELAY, this);
-
-        FilledShapeFactory filledShapeFactory = new FilledShapeFactory();
-        bouncers.addAll(filledShapeFactory.createCircles());
-
-        /*
-        for (Bounceable bounceable : bouncers) {
-            System.out.println("Bouncer color " + bounceable.getColor());
-        }
-        */
-
         /*
         for (int i = 0; i < 50; i++)
         {
