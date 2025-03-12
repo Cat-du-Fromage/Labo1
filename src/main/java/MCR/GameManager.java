@@ -1,13 +1,10 @@
 package MCR;
 
-import MCR.Shape.Bounceable;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ComponentAdapter;
-import java.awt.event.ComponentListener;
+import java.awt.event.ComponentEvent;
 import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
 
 public class GameManager implements Displayer {
     private final int GAME_WIDTH = 1024;
@@ -15,7 +12,7 @@ public class GameManager implements Displayer {
     private static GameManager instance;
 
     private final JFrame frame;
-    private JPanel panel;
+    private final JPanel panel;
 
     public static GameManager getInstance() {
         if (instance == null) {
@@ -39,8 +36,8 @@ public class GameManager implements Displayer {
         frame.setResizable(true);
         frame.setFocusable(true);
         frame.setLayout(new FlowLayout(FlowLayout.CENTER));
-        frame.setSize(GAME_WIDTH, GAME_HEIGHT + 48);
-        frame.setPreferredSize(new Dimension(GAME_WIDTH, GAME_HEIGHT + 48));
+        frame.setSize(GAME_WIDTH, GAME_HEIGHT);
+        frame.setPreferredSize(new Dimension(GAME_WIDTH, GAME_HEIGHT));
         frame.pack(); //will size the frame to fit all element
 
         frame.setLocationRelativeTo(null);
@@ -54,20 +51,35 @@ public class GameManager implements Displayer {
         panel.setVisible(true);
         panel.setBounds(0, 0, GAME_WIDTH, GAME_HEIGHT);
         System.out.println("GameScene Created");
+
+        frame.addComponentListener(new ComponentAdapter() {
+            @Override
+            public void componentResized(ComponentEvent e) {
+                panel.setSize(frame.getContentPane().getSize());
+                panel.setBounds(0, 0, frame.getWidth(), frame.getHeight());
+                System.out.println("Nouvelle taille du panel : " + panel.getWidth() + "x" + panel.getHeight());
+            }
+        });
     }
 
     public JFrame getFrame() {
         return frame;
     }
 
+    private void clear() {
+        panel.getGraphics().clearRect(0, 0, GAME_WIDTH, GAME_HEIGHT);
+    }
+
     @Override
     public int getWidth() {
-        return GAME_WIDTH;
+        //return GAME_WIDTH;
+        return panel.getWidth();
     }
 
     @Override
     public int getHeight() {
-        return GAME_HEIGHT;
+        //return GAME_HEIGHT;
+        return panel.getHeight();
     }
 
     @Override
@@ -78,10 +90,6 @@ public class GameManager implements Displayer {
     @Override
     public void repaint() {
         clear();
-    }
-
-    public void clear() {
-        panel.getGraphics().clearRect(0, 0, GAME_WIDTH, GAME_HEIGHT);
     }
 
     @Override

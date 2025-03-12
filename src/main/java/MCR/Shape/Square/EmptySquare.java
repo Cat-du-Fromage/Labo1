@@ -1,11 +1,9 @@
 package MCR.Shape.Square;
 
 import MCR.GameManager;
-import MCR.Shape.BaseShape;
-import MCR.Shape.Renderer.BorderedRenderer;
+import MCR.Shape.Renderer.EmptyRenderer;
 
 import java.awt.*;
-import java.awt.geom.Rectangle2D;
 
 public class EmptySquare extends Square {
 
@@ -15,7 +13,7 @@ public class EmptySquare extends Square {
 
     @Override
     public void draw() {
-        BorderedRenderer.getInstance().display(GameManager.getInstance().getGraphics(), this);
+        EmptyRenderer.getInstance().display(GameManager.getInstance().getGraphics(), this);
     }
 
     @Override

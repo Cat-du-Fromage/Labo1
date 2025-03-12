@@ -5,15 +5,15 @@ import MCR.Shape.Bounceable;
 
 import java.awt.*;
 
-public class BorderedRenderer implements Renderer {
+public class EmptyRenderer implements Renderer {
 
-    private static BorderedRenderer instance;
+    private static EmptyRenderer instance;
 
-    public BorderedRenderer() {}
+    private EmptyRenderer() {}
 
     public static Renderer getInstance() {
         if (instance == null) {
-            instance = new BorderedRenderer();
+            instance = new EmptyRenderer();
         }
         return instance;
     }

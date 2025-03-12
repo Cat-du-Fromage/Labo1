@@ -9,7 +9,7 @@ public class FilledRenderer implements Renderer {
 
     private static FilledRenderer instance;
 
-    public FilledRenderer() {}
+    private FilledRenderer() {}
 
     public static Renderer getInstance() {
         if (instance == null) {

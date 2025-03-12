@@ -1,11 +1,9 @@
 package MCR.Shape.Circle;
 
 import MCR.GameManager;
-import MCR.Shape.BaseShape;
-import MCR.Shape.Renderer.*;
+import MCR.Shape.Renderer.FilledRenderer;
 
 import java.awt.*;
-import java.awt.geom.Ellipse2D;
 
 public class FilledCircle extends Circle {
 
