@@ -1,5 +1,6 @@
 package MCR.Shape.Circle;
 
+import MCR.GameManager;
 import MCR.Shape.BaseShape;
 
 import java.awt.*;

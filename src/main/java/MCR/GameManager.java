@@ -35,10 +35,11 @@ public class GameManager implements Displayer {
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         frame.setResizable(true);
         frame.setFocusable(true);
-        frame.setLayout(new FlowLayout(FlowLayout.CENTER));
+        //frame.setLayout(new FlowLayout(FlowLayout.CENTER));
+        frame.setLayout(new BorderLayout());
         frame.setSize(GAME_WIDTH, GAME_HEIGHT);
-        frame.setPreferredSize(new Dimension(GAME_WIDTH, GAME_HEIGHT));
-        frame.pack(); //will size the frame to fit all element
+        //frame.setPreferredSize(new Dimension(GAME_WIDTH, GAME_HEIGHT));
+        //frame.pack(); //will size the frame to fit all element
 
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
@@ -47,16 +48,16 @@ public class GameManager implements Displayer {
     private void initPanel() {
         panel.setFocusable(true);
         panel.setSize(GAME_WIDTH, GAME_HEIGHT);
-        panel.setPreferredSize(new Dimension(GAME_WIDTH, GAME_HEIGHT));
+        //panel.setPreferredSize(new Dimension(GAME_WIDTH, GAME_HEIGHT));
         panel.setVisible(true);
-        panel.setBounds(0, 0, GAME_WIDTH, GAME_HEIGHT);
+        //panel.setBounds(0, 0, GAME_WIDTH, GAME_HEIGHT);
         System.out.println("GameScene Created");
 
         frame.addComponentListener(new ComponentAdapter() {
             @Override
             public void componentResized(ComponentEvent e) {
-                panel.setSize(frame.getContentPane().getSize());
-                panel.setBounds(0, 0, frame.getWidth(), frame.getHeight());
+                panel.setSize(frame.getWidth(), frame.getHeight());
+                //panel.setBounds(0, 0, frame.getWidth(), frame.getHeight());
                 System.out.println("Nouvelle taille du panel : " + panel.getWidth() + "x" + panel.getHeight());
             }
         });
@@ -67,7 +68,7 @@ public class GameManager implements Displayer {
     }
 
     private void clear() {
-        panel.getGraphics().clearRect(0, 0, GAME_WIDTH, GAME_HEIGHT);
+        panel.getGraphics().clearRect(0, 0, panel.getWidth(), panel.getHeight());
     }
 
     @Override

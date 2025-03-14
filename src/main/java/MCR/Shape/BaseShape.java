@@ -7,7 +7,6 @@ import java.awt.*;
 public abstract class BaseShape implements Bounceable {
     protected int size;
     protected Point origin;
-
     protected Point velocity;
 
     protected BaseShape() {
@@ -16,46 +15,36 @@ public abstract class BaseShape implements Bounceable {
         int posY = (int)(Math.random() * GameManager.getInstance().getHeight() - (size)) + size * 2;
         origin = new Point(posX, posY);
 
-        int velocityX = (int)(Math.random() * 8) + 2;
-        int velocityY = (int)(Math.random() * 8) + 2;
+        int velocityX = ((int)(Math.random() * 4) + 1) * 2;
+        int velocityY = ((int)(Math.random() * 4) + 1) * 2;
         velocity = new Point(velocityX, velocityY);
     }
 
-    public void move(){
-        if(this.origin.x + velocity.x == GameManager.getInstance().getWidth() - size)
-        {
-            velocity.x = -velocity.x;
+    public void move() {
+        int vx = velocity.x;
+        int vy = velocity.y;
+
+        int x =  Math.max(0, Math.min(origin.x, GameManager.getInstance().getWidth() - size));
+        int y =  Math.max(0, Math.min(origin.y, GameManager.getInstance().getHeight() - size));
+
+        if (x + vx < 0 && vx < 0) {
+            vx *= -1;
         }
-        else if(this.origin.x + velocity.x > GameManager.getInstance().getWidth() - size)
-        {
-            this.origin.x = (int)(GameManager.getInstance().getWidth() - size * 2);
-            velocity.x = -velocity.x;
-        }
-        else if(this.origin.x + velocity.x < 0){
-            this.origin.x = 0;
-            velocity.x = -velocity.x;
-        }
-        else
-        {
-            this.origin.x += velocity.x;
+        else if( x + size + vx > GameManager.getInstance().getWidth() - 4 && vx > 0) {
+            vx *= -1;
         }
 
-        if(this.origin.y + velocity.y == GameManager.getInstance().getHeight() - this.size)
-        {
-            velocity.y = -velocity.y;
+        if (y + vy < 0 && vy < 0 ) {
+            vy *= -1;
         }
-        else if(this.origin.y + this.size + velocity.y > GameManager.getInstance().getHeight() - size){ //bas
-            this.origin.y = GameManager.getInstance().getHeight() - size * 2;
-            velocity.y = -velocity.y;
-        }
-        else if(this.origin.y + velocity.y < 0){ // haut
-            this.origin.y = 0;
-            velocity.y = -velocity.y;
-        }
-        else
-        {
-            this.origin.y += velocity.y;
+        else if(y + size + vy > GameManager.getInstance().getHeight() - 32 && vy > 0) {
+            vy *= -1;
         }
 
+        x += vx;
+        y += vy;
+
+        velocity = new Point(vx, vy);
+        origin = new Point(x, y);
     }
 }

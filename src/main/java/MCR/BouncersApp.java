@@ -44,7 +44,6 @@ public class BouncersApp implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         gameManager.repaint();
-        //System.out.println(gameManager.getFrame().getWidth());
         for (Bounceable bounceable : bouncers) {
             bounceable.move();
             bounceable.draw();
