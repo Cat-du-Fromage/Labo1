@@ -21,23 +21,25 @@ public abstract class BaseShape implements Bounceable {
     }
 
     public void move() {
+        int screenWidth = GameManager.getInstance().getWidth();
+        int screenHeight = GameManager.getInstance().getHeight();
         int vx = velocity.x;
         int vy = velocity.y;
 
-        int x =  Math.max(0, Math.min(origin.x, GameManager.getInstance().getWidth() - size));
-        int y =  Math.max(0, Math.min(origin.y, GameManager.getInstance().getHeight() - size));
+        int x =  Math.max(0, Math.min(origin.x, screenWidth - size));
+        int y =  Math.max(0, Math.min(origin.y, screenHeight - size));
 
         if (x + vx < 0 && vx < 0) {
             vx *= -1;
         }
-        else if( x + size + vx > GameManager.getInstance().getWidth() - 4 && vx > 0) {
+        else if( x + size + vx > screenWidth - 4 && vx > 0) {
             vx *= -1;
         }
 
         if (y + vy < 0 && vy < 0 ) {
             vy *= -1;
         }
-        else if(y + size + vy > GameManager.getInstance().getHeight() - 32 && vy > 0) {
+        else if(y + size + vy > screenHeight - 32 && vy > 0) {
             vy *= -1;
         }
 
